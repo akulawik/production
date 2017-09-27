@@ -9,16 +9,16 @@ Feature: manual adjustments of demand
   We can change only Demands for today and future.
   New demand is stored for further reference
   Data from callof document should be preserved (DON’T OVERRIDE THEM).
-  Adjust demand should be possible to even
+  Adjust demand should be possible even
   if there was no callof document for that product.
   Logistician note should be kept along with adjustment.
-  In standard case future callof documents should be stronger (override) adjustment,
-  but if customer warn us about opposite case.
+  In standard case future callof documents should be stronger (overrides) adjustment,
+  but if customer warn us about opposite case import of callof document should not remove previous adjustements.
 
   If new demand is not fulfilled by
   current product stock and production forecast
   there is a shortage in particular days and we need to rise an alert.
-  planner should be notified, 
+  planner should be notified,
 
   if there are locked parts on stock,
   QA task for recovering them should have high priority.
