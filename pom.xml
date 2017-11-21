@@ -10,9 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <!--<module>production-infrastructure</module>-->
-        <module>production-model</module>
-        <!--<module>production-playground</module>-->
+        <module>playground-model</module>
     </modules>
 
 </project>
