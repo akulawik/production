@@ -5,7 +5,7 @@ import spock.lang.Specification
 class ManagingDemandsSpec extends Specification {
 
     def builder = new SomethingWithDemandsBuilder()
-    def events = null
+    def events = Mock(DemandEvents)
 
     def "Adjusted demands should be stored"() {
         given:
@@ -60,7 +60,22 @@ class ManagingDemandsSpec extends Specification {
 
         then:
         demand.getLevel() == Demand.of(3500)
-        0 * events.emit(_ as DemandChangedEvent)
+        0 * events.emit(_ as DemandedLevelChanged)
+    }
+
+    def "Review request after processing of document with unmatching value after strong adjustement"() {
+        given:
+        def demand = demand()
+                .demandedLevels(2800)
+                .stronglyAdjustedTo(3500).build()
+
+        when:
+        demand.update(newCallOffDemand(5000))
+
+        then:
+        demand.getLevel() == Demand.of(3500)
+        1 * events.emit(reviewRequest(2800, 3500, 5000))
+        0 * events.emit(_ as DemandedLevelChanged)
     }
 
     def demand() {
@@ -78,5 +93,12 @@ class ManagingDemandsSpec extends Specification {
 
     def levelChanged(long previous, long current) {
         builder.levelChanged(previous, current)
+    }
+
+    ReviewRequest reviewRequest(
+            long previousDocument,
+            long strongAdjustment,
+            long currentDocument) {
+        builder.reviewRequest(previousDocument, strongAdjustment, currentDocument)
     }
 }
