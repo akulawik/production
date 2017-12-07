@@ -8,13 +8,13 @@ import java.time.ZoneId
 class SomethingWithDemandsBuilder {
 
     Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault())
-    SomethingWithDemands.Events events
+    def events
 
     String refNo = "3009000"
     LocalDate date = LocalDate.now(clock)
 
-    SomethingWithDemands build() {
-        new SomethingWithDemands(clock, events)
+    def build() {
+        // ??
     }
 
     SomethingWithDemandsBuilder reset() {
@@ -55,9 +55,7 @@ class SomethingWithDemandsBuilder {
         // ??
     }
 
-    SomethingWithDemands.DemandChanged levelChanged(long previous, long current) {
-        new SomethingWithDemands.DemandChanged(
-                // ??
-        )
+    def levelChanged(long previous, long current) {
+        // ??
     }
 }

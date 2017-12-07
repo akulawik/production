@@ -5,7 +5,7 @@ import spock.lang.Specification
 class ManagingDemandsSpec extends Specification {
 
     def builder = new SomethingWithDemandsBuilder()
-    def events = Mock(SomethingWithDemands.Events)
+    def events = null
 
     def "Adjusted demands should be stored"() {
         given:
@@ -60,7 +60,7 @@ class ManagingDemandsSpec extends Specification {
 
         then:
         demand.getLevel() == Demand.of(3500)
-        0 * events.emit(_ as SomethingWithDemands.DemandChanged)
+        0 * events.emit(_ as DemandChangedEvent)
     }
 
     def demand() {
