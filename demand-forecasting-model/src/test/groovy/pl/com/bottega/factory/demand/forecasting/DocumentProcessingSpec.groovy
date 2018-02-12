@@ -6,6 +6,13 @@ import java.time.LocalDate
 
 class DocumentProcessingSpec extends Specification implements ProductDemandTrait {
 
+    private DemandEvents events = Mock(DemandEvents)
+
+    void setup() {
+        builder = new SomethingBiggerWithDemandBuilder()
+        builder.events = events
+    }
+
     def "Updated demands should be stored"() {
         given:
         def today = LocalDate.now(builder.clock)

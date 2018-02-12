@@ -1,10 +1,16 @@
 package pl.com.bottega.factory.demand.forecasting
 
+import java.time.Clock
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneOffset
 
 import static pl.com.bottega.factory.demand.forecasting.ReviewRequired.ToReview
 
 class SomethingBiggerWithDemandBuilder {
+
+    DemandEvents events
+    Clock clock = Clock.fixed(Instant.now(), ZoneOffset.UTC)
 
     def demand(long ... levels) {
         // todo
@@ -22,7 +28,7 @@ class SomethingBiggerWithDemandBuilder {
     }
 
     def build() {
-        // todo
+        new SomethingBiggerWithDemand(events, clock, null)
     }
 
     def document(LocalDate date, long ... levels) {
