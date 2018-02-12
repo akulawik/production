@@ -17,7 +17,7 @@ class SomethingBiggerWithDemand {
 
     void adjust(AdjustDemand adjustDemand) {
         //  We can change only Demands for today and future.
-        for (Map.Entry<LocalDate, Adjustment> entry : field.getAdjustments().entrySet()) {
+        for (Map.Entry<LocalDate, Adjustment> entry : adjustDemand.getAdjustments().entrySet()) {
             if (!entry.getKey().isBefore(LocalDate.now(clock))) {
 
             }

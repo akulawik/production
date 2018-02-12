@@ -6,11 +6,10 @@ import java.time.LocalDate
 
 class DemandAdjustmentSpec extends Specification implements ProductDemandTrait {
 
-    private DemandEvents events = Mock(DemandEvents)
+    def events = Mock(DemandEvents)
 
     void setup() {
-        events = Mock(DemandEvents)
-        builder.events = events
+        builder = new SomethingBiggerWithDemandBuilder(events: events)
     }
 
     def "Adjusted demands should be stored"() {
