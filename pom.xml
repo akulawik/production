@@ -12,7 +12,6 @@
     <modules>
         <module>shared-kernel-model</module>
         <module>demand-forecasting-model</module>
-        <module>shortages-prediction-model</module>
     </modules>
 
 </project>
