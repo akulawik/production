@@ -88,18 +88,20 @@ class KeepingDailyDemandsSpec extends Specification {
         builder.adjustDemandTo(level)
     }
 
-    SomethingSmallerWithDemand.Result noChange() {
-        SomethingSmallerWithDemand.Result.non()
+    DailyDemand.Result noChange() {
+        DailyDemand.Result.non(builder.dailyId())
     }
 
-    SomethingSmallerWithDemand.Result levelChanged(long previous, long current) {
-        SomethingSmallerWithDemand.Result.builder()
+    DailyDemand.Result levelChanged(long previous, long current) {
+        DailyDemand.Result.builder()
+                .id(builder.dailyId())
                 .levelChange(builder.levelChanged(previous, current))
                 .build()
     }
 
-    SomethingSmallerWithDemand.Result reviewRequest(long previousDocumented, long adjustment, long newDocumented) {
-        SomethingSmallerWithDemand.Result.builder()
+    DailyDemand.Result reviewRequest(long previousDocumented, long adjustment, long newDocumented) {
+        DailyDemand.Result.builder()
+                .id(builder.dailyId())
                 .toReview(builder.reviewRequest(previousDocumented, adjustment, newDocumented))
                 .build()
     }

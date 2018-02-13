@@ -17,21 +17,13 @@ public class SomethingBiggerWithDemandBuilder {
         this.events = events;
     }
 
-    public SomethingBiggerWithDemand build() {
-        Map<LocalDate, Demand> documented = demands.entrySet().stream()
-                .filter(e -> e.getValue().getDocumented() != null)
+    public ProductDemand build() {
+        return new ProductDemand(events, clock,
+                new RefNoId(refNo), demands.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        e -> e.getValue().getDocumented()
-                ));
-        Map<LocalDate, Adjustment> adjustements = demands.entrySet().stream()
-                .filter(e -> e.getValue().getAdjustment() != null)
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> e.getValue().getAdjustment()
-                ));
-        // TODO correct constructor parameters
-        return new SomethingBiggerWithDemand(events, clock, null);
+                        e -> e.getValue().build()
+                )));
     }
 
     public SomethingBiggerWithDemandBuilder demand(Long... levels) {

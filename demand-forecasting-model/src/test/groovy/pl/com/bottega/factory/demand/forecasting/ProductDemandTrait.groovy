@@ -8,7 +8,7 @@ trait ProductDemandTrait {
 
     SomethingBiggerWithDemandBuilder builder
 
-    SomethingBiggerWithDemand demanded(Long... levels) {
+    ProductDemand demanded(Long... levels) {
         builder.demand(levels).build()
     }
 

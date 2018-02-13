@@ -9,6 +9,8 @@ public class SomethingSmallerWithDemandBuilder {
 
     private Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private String refNo = "3009000";
+
+
     private LocalDate date = LocalDate.now(clock);
     private Demand documented;
     private Adjustment adjustment;
@@ -22,9 +24,12 @@ public class SomethingSmallerWithDemandBuilder {
     public SomethingSmallerWithDemandBuilder() {
     }
 
-    public SomethingSmallerWithDemand build() {
-        // TODO correct constructor parameters
-        return new SomethingSmallerWithDemand();
+    public DailyDemand build() {
+        return new DailyDemand(
+                new DailyId(refNo, date),
+                documented,
+                adjustment
+        );
     }
 
     public SomethingSmallerWithDemandBuilder date(LocalDate date) {
@@ -84,5 +89,13 @@ public class SomethingSmallerWithDemandBuilder {
 
     public Adjustment getAdjustment() {
         return adjustment;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public DailyId dailyId() {
+        return new DailyId(refNo, date);
     }
 }
