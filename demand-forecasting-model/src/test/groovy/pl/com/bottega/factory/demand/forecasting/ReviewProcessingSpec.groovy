@@ -11,34 +11,34 @@ class ReviewProcessingSpec extends Specification implements ProductDemandTrait {
     def events = Mock(DemandEvents)
 
     void setup() {
-        builder = new SomethingBiggerWithDemandBuilder(events: events)
+        builder = new SomethingBiggerWithDemandBuilder(events)
     }
 
     def "Review requested"() {
         given:
         def today = LocalDate.now(builder.clock)
         def tomorrow = today.plusDays(1)
-        def demand = demand(0, 0)
-                .stronglyAdjusted((tomorrow): 3500)
+        def demand = demand(0L, 0L)
+                .stronglyAdjusted((tomorrow): 3500L)
                 .build()
 
         when:
-        demand.process(document(today, 0, 2800))
+        demand.process(document(today, 0L, 2800L))
 
         then:
-        1 * events.emit(reviewRequest(review(tomorrow, 0, 3500, 2800)))
+        1 * events.emit(reviewRequest(review(tomorrow, 0L, 3500L, 2800L)))
     }
 
     def "decision to 'ignore'"() {
         given:
         def today = LocalDate.now(builder.clock)
         def tomorrow = today.plusDays(1)
-        def demand = demand(0, 2800)
-                .stronglyAdjusted((tomorrow): 3500)
+        def demand = demand(0L, 2800L)
+                .stronglyAdjusted((tomorrow): 3500L)
                 .build()
 
         when:
-        demand.review(review(tomorrow, 0, 3500, 2800), IGNORE)
+        demand.review(review(tomorrow, 0L, 3500L, 2800L), IGNORE)
 
         then:
         0 * events.emit(_ as DemandedLevelsChanged)
@@ -48,42 +48,42 @@ class ReviewProcessingSpec extends Specification implements ProductDemandTrait {
         given:
         def today = LocalDate.now(builder.clock)
         def tomorrow = today.plusDays(1)
-        def demand = demand(0, 2800)
-                .stronglyAdjusted((tomorrow): 3500)
+        def demand = demand(0L, 2800L)
+                .stronglyAdjusted((tomorrow): 3500L)
                 .build()
 
         when:
-        demand.review(review(tomorrow, 0, 3500, 2800), PICK_NEW)
+        demand.review(review(tomorrow, 0L, 3500L, 2800L), PICK_NEW)
 
         then:
-        1 * events.emit(levelChanged([], [3500, 2800]))
+        1 * events.emit(levelChanged([], [3500L, 2800L]))
     }
 
     def "decision to 'pick previous'"() {
         given:
         def today = LocalDate.now(builder.clock)
         def tomorrow = today.plusDays(1)
-        def demand = demand(0, 2800)
-                .stronglyAdjusted((tomorrow): 3500)
+        def demand = demand(0L, 2800L)
+                .stronglyAdjusted((tomorrow): 3500L)
                 .build()
 
         when:
-        demand.review(review(tomorrow, 0, 3500, 2800), PICK_PREVIOUS)
+        demand.review(review(tomorrow, 0L, 3500L, 2800L), PICK_PREVIOUS)
 
         then:
-        1 * events.emit(levelChanged([], [3500, 0]))
+        1 * events.emit(levelChanged([], [3500L, 0L]))
     }
 
     def "decision to 'make adjustment weak'"() {
         given:
         def today = LocalDate.now(builder.clock)
         def tomorrow = today.plusDays(1)
-        def demand = demand(0, 2800)
-                .stronglyAdjusted((tomorrow): 3500)
+        def demand = demand(0L, 2800L)
+                .stronglyAdjusted((tomorrow): 3500L)
                 .build()
 
         when:
-        demand.review(review(tomorrow, 0, 3500, 2800), MAKE_ADJUSTMENT_WEAK)
+        demand.review(review(tomorrow, 0L, 3500L, 2800L), MAKE_ADJUSTMENT_WEAK)
 
         then:
         0 * events.emit(_ as DemandedLevelsChanged)

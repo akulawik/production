@@ -88,15 +88,19 @@ class KeepingDailyDemandsSpec extends Specification {
         builder.adjustDemandTo(level)
     }
 
-    def noChange() {
-        builder.noLevelChanged()
+    SomethingSmallerWithDemand.Result noChange() {
+        SomethingSmallerWithDemand.Result.non()
     }
 
-    def levelChanged(long previous, long current) {
-        builder.levelChanged(previous, current)
+    SomethingSmallerWithDemand.Result levelChanged(long previous, long current) {
+        SomethingSmallerWithDemand.Result.builder()
+                .levelChange(builder.levelChanged(previous, current))
+                .build()
     }
 
-    def reviewRequest(long previousDocumented, long adjustment, long newDocumented) {
-        builder.reviewRequest(previousDocumented, adjustment, newDocumented)
+    SomethingSmallerWithDemand.Result reviewRequest(long previousDocumented, long adjustment, long newDocumented) {
+        SomethingSmallerWithDemand.Result.builder()
+                .toReview(builder.reviewRequest(previousDocumented, adjustment, newDocumented))
+                .build()
     }
 }

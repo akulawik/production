@@ -8,15 +8,15 @@ trait ProductDemandTrait {
 
     SomethingBiggerWithDemandBuilder builder
 
-    SomethingBiggerWithDemand demanded(long ... levels) {
+    SomethingBiggerWithDemand demanded(Long... levels) {
         builder.demand(levels).build()
     }
 
-    SomethingBiggerWithDemandBuilder demand(long ... levels) {
+    SomethingBiggerWithDemandBuilder demand(Long... levels) {
         builder.demand(levels)
     }
 
-    Document document(LocalDate date, long ... levels) {
+    Document document(LocalDate date, Long... levels) {
         builder.document(date, levels)
     }
 
